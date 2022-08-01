@@ -8,8 +8,10 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 const isDevelopment = process.env.NODE_ENV === "development";
 
+require("./helpers/passport");
+
 const indexRouter = require("./routes/index");
-const postsRouter = require("./routes/posts");
+const apiRouter = require("./routes/api");
 
 // Set Up Cors
 const corsOptions = {
@@ -34,7 +36,7 @@ app.use(express.static(path.join(__dirname, "public")));
 
 // Routes
 app.use("/", indexRouter);
-app.use("/posts", postsRouter);
+app.use("/api", apiRouter);
 
 // Start Server
 app.listen(PORT, () => console.log(`Server running on port ${PORT}.`));
