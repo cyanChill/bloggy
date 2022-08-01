@@ -9,6 +9,7 @@ const PORT = process.env.PORT || 3000;
 const isDevelopment = process.env.NODE_ENV === "development";
 
 const indexRouter = require("./routes/index");
+const postsRouter = require("./routes/posts");
 
 // Set Up Cors
 const corsOptions = {
@@ -32,7 +33,8 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "public")));
 
 // Routes
-app.use("/api", indexRouter);
+app.use("/", indexRouter);
+app.use("/posts", postsRouter);
 
 // Start Server
 app.listen(PORT, () => console.log(`Server running on port ${PORT}.`));
