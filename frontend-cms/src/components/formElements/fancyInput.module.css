@@ -40,3 +40,9 @@
   color: var(--focused-clr) !important;
   transform: translateY(-105%) !important;
 }
+
+.error {
+  padding-top: 0.25rem;
+  color: var(--error-300);
+  font-size: 0.9rem;
+}
