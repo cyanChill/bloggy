@@ -16,7 +16,7 @@ const apiRouter = require("./routes/api");
 // Set Up Cors
 const corsOptions = {
   // Ignore Cors in development but restrict to URL in production
-  origin: isDevelopment ? false : process.env.FRONTEND_ORIGIN,
+  origin: isDevelopment ? true : process.env.FRONTEND_ORIGIN,
   optionsSuccessStatus: 200,
 };
 app.use(cors(corsOptions)); // Enable Cors for all requests

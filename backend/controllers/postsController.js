@@ -113,12 +113,11 @@ exports.postPut = [
   async (req, res, next) => {
     const errors = validationResult(req);
     const updatedPostBody = {
-      author: req.user._id,
       published: req.body.published,
       title: req.body.title,
       thumbnailUrl: req.body.thumbnailUrl,
       content: req.body.content,
-      date: Date.now(),
+      lastEdited: Date.now(),
     };
 
     if (!errors.isEmpty()) {

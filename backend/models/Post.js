@@ -9,6 +9,7 @@ const PostSchema = new Schema({
   content: { type: String, required: true },
   thumbnailUrl: { type: String, required: true },
   date: { type: Date, required: true },
+  lastEdited: { type: Date },
 });
 
 module.exports = mongoose.model("Post", PostSchema);
