@@ -118,7 +118,6 @@ object {
   --btn-hover-clr: var(--blue-600);
 
   height: max-content;
-  cursor: pointer;
   padding: 0.75rem;
 
   color: var(--btn-text-clr);
@@ -143,7 +142,8 @@ object {
   font-weight: 600;
 }
 
-.btn:hover {
+.btn:not(:disabled):hover {
+  cursor: pointer;
   text-decoration: none;
   background-color: var(--btn-hover-clr);
 }
@@ -166,4 +166,8 @@ object {
 .btn.red {
   --btn-clr: var(--error-300);
   --btn-hover-clr: var(--error-500);
+}
+
+.btn:disabled {
+  filter: grayscale(50%);
 }

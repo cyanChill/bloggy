@@ -24,6 +24,10 @@
   aspect-ratio: 1;
 }
 
+.navContent:hover {
+  text-decoration: none;
+}
+
 @media (min-width: 568px) {
   .navContent {
     padding: 0.5rem 2rem;

@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 
 import styles from "./fancyInput.module.css";
 
-const FancyInput = ({ className, value, inputConfig, inputLabel }) => {
+const FancyInput = ({ className, value, inputConfig, labelText }) => {
   const [isFocused, setIsFocused] = useState(false);
   const [inputValue, setInputValue] = useState(value || "");
   const inputConfigs = { type: "text", ...inputConfig };
@@ -32,7 +32,7 @@ const FancyInput = ({ className, value, inputConfig, inputLabel }) => {
         onFocus={onInputFocus}
         onBlur={onInputUnFocus}
       />
-      <label className={isFocused ? styles.focused : null}>{inputLabel}</label>
+      <label className={isFocused ? styles.focused : null}>{labelText}</label>
     </div>
   );
 };
