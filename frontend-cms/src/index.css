@@ -171,3 +171,11 @@ object {
 .btn:disabled {
   filter: grayscale(50%);
 }
+
+/* For "..." on long text */
+.ellipse {
+  max-width: 100%;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}

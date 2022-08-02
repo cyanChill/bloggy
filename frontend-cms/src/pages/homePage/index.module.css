@@ -1,7 +1,13 @@
-.container {
+.container,
+.subContainer {
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: 1.5rem;
+}
+
+.subContainer {
+  width: 100%;
   gap: 0.5rem;
 }
 
@@ -24,4 +30,29 @@
   display: block;
   height: 1px;
   background-color: var(--grey-400);
+}
+
+.postsContainer {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 100%;
+  gap: 0.5rem;
+}
+
+@media (min-width: 568px) {
+  .postsContainer {
+    grid-template-columns: repeat(2, 50%);
+  }
+}
+
+@media (min-width: 768px) {
+  .postsContainer {
+    grid-template-columns: repeat(3, 33.33%);
+  }
+}
+
+@media (min-width: 968px) {
+  .postsContainer {
+    grid-template-columns: repeat(4, 25%);
+  }
 }

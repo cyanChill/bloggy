@@ -1,88 +1,36 @@
-import { useState, useEffect } from "react";
+import { useContext, useState, useEffect } from "react";
 import { useParams } from "react-router";
 import { format } from "date-fns";
 import parse from "html-react-parser";
+
+import { AuthContext } from "../../context/authContext";
 
 import styles from "./index.module.css";
 import Card from "../../components/card";
 import Comment from "../../components/comment";
 import LoadingSpinner from "../../components/loadingSpinner";
-import StyledInput from "../../components/formElements/styledInput";
 import ErrorPage from "../errorPage";
 
 const PostPage = () => {
   const { postId } = useParams();
+  const { token } = useContext(AuthContext);
 
   const [postData, setPostData] = useState([]);
   const [postComments, setPostComments] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(false);
 
-  /* Comment Form Input */
-  const [username, setUsername] = useState("");
-  const [comment, setComment] = useState("");
-  const [errors, setErrors] = useState({
-    usernameError: "",
-    commentError: "",
-  });
-  const [isSubForm, setIsSubForm] = useState(false);
-
-  const commentSubmitHandler = async (e) => {
-    e.preventDefault();
-    setIsSubForm(true);
-    // Reset Errors
-    setErrors({ usernameError: "", commentError: "" });
-
-    if (username.trim().length === 0) {
-      setErrors((prev) => ({
-        ...prev,
-        usernameError: "Your username must be nonempty.",
-      }));
-    }
-    if (comment.trim().length === 0) {
-      setErrors((prev) => ({
-        ...prev,
-        commentError: "Your comment must be nonempty.",
-      }));
-    }
-
-    // Contain some error
-    if (!Object.values(errors).every((val) => val === null || val === "")) {
-      return;
-    }
-
-    // Send request to backend
-    const res = await fetch(
-      `${process.env.REACT_APP_BACKEND_URL}/api/posts/${postId}/comments`,
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ username, content: comment }),
-      }
-    );
-    const data = await res.json();
-    if (!res.ok) {
-      // Received some errors
-      const newErrs = data.errors.map((err) => ({ [err.param]: err.msg }));
-      setError(newErrs);
-    } else {
-      // Successfully added comment
-      setPostComments((prev) => [...prev, { username, content: data.comment }]);
-      setComment("");
-      setUsername("");
-    }
-
-    setIsSubForm(false);
-  };
-
   useEffect(() => {
     const getPostInfo = async () => {
       setIsLoading(true);
 
       const [postRes, commentsRes] = await Promise.allSettled([
-        fetch(`${process.env.REACT_APP_BACKEND_URL}/api/posts/${postId}`),
+        fetch(`${process.env.REACT_APP_BACKEND_URL}/api/posts/${postId}`, {
+          headers: { Authorization: `bearer ${token}` },
+        }),
         fetch(
-          `${process.env.REACT_APP_BACKEND_URL}/api/posts/${postId}/comments`
+          `${process.env.REACT_APP_BACKEND_URL}/api/posts/${postId}/comments`,
+          { headers: { Authorization: `bearer ${token}` } }
         ),
       ]);
 
@@ -99,7 +47,7 @@ const PostPage = () => {
     };
 
     getPostInfo();
-  }, [postId]);
+  }, [postId, token]);
 
   if (isLoading) {
     return (
@@ -147,38 +95,6 @@ const PostPage = () => {
 
         <div className={styles.commentsSec}>
           <h2>Discussion ({postComments.length})</h2>
-
-          <form onSubmit={commentSubmitHandler} className={styles.addCommForm}>
-            <StyledInput
-              labelText="Username"
-              type="text"
-              config={{
-                value: username,
-                onChange: (e) => setUsername(e.target.value),
-                required: true,
-              }}
-              error={errors.usernameError}
-            />
-            <StyledInput
-              labelText="Comment"
-              type="textarea"
-              config={{
-                rows: "4",
-                value: comment,
-                onChange: (e) => setComment(e.target.value),
-                required: true,
-              }}
-              error={errors.commentError}
-            />
-            <button
-              type="submit"
-              disabled={isSubForm}
-              className="btn compressed"
-            >
-              Submit
-            </button>
-          </form>
-
           <div className={styles.commentCont}>
             {postComments.length === 0 ? (
               <p className={styles.noneFound}>No Comments Found.</p>

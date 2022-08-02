@@ -14,7 +14,7 @@
 }
 
 .postCard img {
-  height: 5rem;
+  height: 3rem;
   width: 100%;
   object-fit: cover;
 }
@@ -28,11 +28,12 @@
 
 .content h2 {
   font-weight: 500;
+  font-size: clamp(1rem, 3vw, 1.35rem);
 }
 
 .content p {
   color: var(--grey-500);
-  font-size: 0.9rem;
+  font-size: clamp(0.75rem, 2vw, 0.85rem);
 }
 
 .content p > span {

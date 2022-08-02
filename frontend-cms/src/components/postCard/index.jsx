@@ -8,7 +8,7 @@ const PostCard = ({ post }) => {
     <Link to={`/post/${post._id}`} className={styles.postCard}>
       <img src={post.thumbnailUrl} alt="Blog Post Thumbnail" />
       <div className={styles.content}>
-        <h2>{post.title}</h2>
+        <h2 className="ellipse">{post.title}</h2>
         <p>
           Posted {format(new Date(post.date), "MMM d yyyy")}{" "}
           {post.lastEdited && (
