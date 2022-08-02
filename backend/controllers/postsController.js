@@ -196,7 +196,7 @@ exports.postCommentsPost = [
     const errors = validationResult(req);
     const newCommentBody = {
       postId: req.params.postId,
-      author: req.body.username,
+      username: req.body.username,
       content: req.body.content,
       date: Date.now(),
     };
