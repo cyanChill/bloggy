@@ -1,0 +1,40 @@
+.postCard {
+  width: 100%;
+  border-radius: 0.25rem;
+  overflow: hidden;
+  color: black;
+  box-shadow: 0 0 4px 4px var(--grey-150);
+  transition: box-shadow 250ms ease-in-out, transform 250ms ease-in-out;
+}
+
+.postCard:hover {
+  text-decoration: none;
+  box-shadow: 0 0 4px 4px var(--grey-300);
+  transform: scale(1.025);
+}
+
+.postCard img {
+  height: 5rem;
+  width: 100%;
+  object-fit: cover;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 0.5rem;
+}
+
+.content h2 {
+  font-weight: 500;
+}
+
+.content p {
+  color: var(--grey-500);
+  font-size: 0.9rem;
+}
+
+.content p > span {
+  color: var(--grey-600);
+}

@@ -1,0 +1,22 @@
+.spinner {
+  --size: 2rem;
+  --thickness: 4px;
+
+  width: var(--size);
+  height: var(--size);
+
+  border-radius: 50%;
+  border: var(--thickness) solid var(--grey-150);
+  border-top: var(--thickness) solid var(--grey-400);
+
+  animation: spinner 1.5s linear infinite;
+}
+
+@keyframes spinner {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
