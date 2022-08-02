@@ -1,0 +1,22 @@
+.comment {
+  width: 100%;
+  padding: 0.5rem;
+  border-radius: 0.25rem;
+  border: 1px solid var(--grey-150);
+}
+
+.commentHeader {
+  font-weight: 500;
+  font-size: clamp(0.8rem, 3vw, 0.95rem);
+  padding-bottom: 0.5rem;
+}
+
+.commentHeader > span {
+  font-weight: 400;
+  color: var(--grey-600);
+}
+
+.commentContent {
+  font-size: clamp(0.8rem, 3vw, 0.9rem);
+  color: var(--grey-600);
+}

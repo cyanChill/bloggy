@@ -1,0 +1,31 @@
+/* Form Element Styles */
+.styledLabel {
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  font-weight: 500;
+}
+
+.styledInput {
+  font-family: var(--font-family);
+  flex: 1;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.95rem;
+  border: 1px solid var(--input-bdr-clr);
+  background-color: var(--input-bkg-clr);
+  border-radius: 0.25rem;
+  outline: none;
+  /* Textarea Styling */
+  resize: none;
+}
+
+.styledInput:focus {
+  border-color: var(--input-bdr-focus-clr);
+}
+
+.error {
+  padding-top: 0.25rem;
+  color: var(--error-300);
+  font-size: 0.9rem;
+}
