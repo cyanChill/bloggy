@@ -21,7 +21,10 @@ const App = () => {
   return (
     <>
       <Nav />
-      <Toaster position="bottom-center" />
+      <Toaster
+        position="bottom-center"
+        toastOptions={{ style: { width: "max-content", maxWidth: "45rem" } }}
+      />
       <div className={styles.container}>
         <Routes>
           {!isAuth ? (
@@ -35,6 +38,10 @@ const App = () => {
           ) : (
             <>
               <Route path="/" element={<HomePage />} />
+              <Route
+                path="/login"
+                element={<Navigate to="/" replace={true} />}
+              />
               <Route path="/post/:postId" element={<PostPage />} />
               <Route path="*" element={<ErrorPage />} />
             </>
