@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-import styles from "./home.module.css";
+import styles from "./index.module.css";
 import PostCard from "../../components/postCard";
 import LoadingSpinner from "../../components/loadingSpinner";
 
