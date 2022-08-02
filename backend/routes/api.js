@@ -15,6 +15,15 @@ router.post("/login", apiController.loginPost);
 // Logout - GET /api/logout
 router.get("/logout", apiController.logoutGet);
 
+// Validate Auth Token
+router.get(
+  "/validateToken",
+  passport.authenticate("jwt", { session: false }),
+  (req, res, next) => {
+    res.status(200).json({ message: "Token is valid." });
+  }
+);
+
 // Add post routes
 router.use("/posts", postsRouter);
 
