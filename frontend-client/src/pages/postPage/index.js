@@ -67,7 +67,7 @@ const PostPage = () => {
       setError(newErrs);
     } else {
       // Successfully added comment
-      setPostComments((prev) => [...prev, { username, content: data.comment }]);
+      setPostComments((prev) => [...prev, { ...data.comment }]);
       setComment("");
       setUsername("");
     }

@@ -36,7 +36,11 @@ const LoginPage = () => {
     <>
       <Card className={styles.card}>
         <h1>Login</h1>
-        <form onSubmit={handleLoginRequest} className={styles.loginForm}>
+        <form
+          onSubmit={handleLoginRequest}
+          className={styles.loginForm}
+          autoComplete="off"
+        >
           <FancyInput
             config={{ name: "username", required: true }}
             labelText="Username"

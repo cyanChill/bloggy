@@ -61,7 +61,10 @@ const AuthProvider = ({ children }) => {
       `${window.location.hostname}-auth-token`
     );
     //Return if no token in both local storage & context (initial app load)
-    if (!prevAuthToken && !token) return;
+    if (!prevAuthToken && !token) {
+      setIsLoading(false);
+      return;
+    }
 
     // Check if token is valid
     const authRes = await fetch(
