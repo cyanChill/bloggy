@@ -14,9 +14,13 @@ const indexRouter = require("./routes/index");
 const apiRouter = require("./routes/api");
 
 // Set Up Cors
+// Put a list of allowed URLs
+//  ie: https://cheerful-phoenix-656d2e.netlify.app
+//  REFER: https://expressjs.com/en/resources/middleware/cors.html#configuration-options
+const ALLOW_ORIGINS_LIST = [];
 const corsOptions = {
   // Ignore Cors in development but restrict to URL in production
-  origin: isDevelopment ? true : process.env.FRONTEND_ORIGIN,
+  origin: isDevelopment ? true : ALLOW_ORIGINS_LIST,
   optionsSuccessStatus: 200,
 };
 app.use(cors(corsOptions)); // Enable Cors for all requests
