@@ -66,9 +66,9 @@
   --input-bdr-focus-clr: var(--grey-600);
 }
 
-*,
-*::before,
-*::after {
+*:not(.default_styling *, .toasterCont *),
+*:not(.default_styling *, .toasterCont *)::before,
+*:not(.default_styling *, .toasterCont *)::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;

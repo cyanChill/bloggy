@@ -9,6 +9,7 @@ export const AuthContext = createContext();
 const AuthProvider = ({ children }) => {
   const [isAuth, setIsAuth] = useState(false);
   const [token, setToken] = useState(null);
+  const [loading, setIsLoading] = useState(true);
   // Toast & Countdown Related
   const rfrshIntIdRef = useRef();
   const sessCdIdRef = useRef();
@@ -55,6 +56,7 @@ const AuthProvider = ({ children }) => {
 
   // Used to validate a previous auth token
   const checkIfPrevAuth = async () => {
+    setIsLoading(true);
     const prevAuthToken = localStorage.getItem(
       `${window.location.hostname}-auth-token`
     );
@@ -81,6 +83,7 @@ const AuthProvider = ({ children }) => {
       setIsAuth(false);
       toast.error("Your session has expired.", { id: "expired" });
     }
+    setIsLoading(false);
   };
 
   // Used to set countdown toast
@@ -143,7 +146,7 @@ const AuthProvider = ({ children }) => {
   }, [token]);
 
   return (
-    <AuthContext.Provider value={{ isAuth, token, login, logout }}>
+    <AuthContext.Provider value={{ isAuth, token, login, logout, loading }}>
       {children}
     </AuthContext.Provider>
   );

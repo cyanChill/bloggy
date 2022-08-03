@@ -1,8 +1,14 @@
 .comment {
   width: 100%;
+  display: flex;
+  gap: 0.5rem;
   padding: 0.5rem;
   border-radius: 0.25rem;
   border: 1px solid var(--grey-150);
+}
+
+.commentMain {
+  width: 100%;
 }
 
 .commentHeader {
@@ -19,4 +25,16 @@
 .commentContent {
   font-size: clamp(0.8rem, 3vw, 0.9rem);
   color: var(--grey-600);
+}
+
+.delete {
+  align-self: flex-start;
+  width: 1.25rem;
+  aspect-ratio: 1;
+  fill: var(--error-300);
+}
+
+.delete:hover {
+  cursor: pointer;
+  fill: var(--error-500);
 }

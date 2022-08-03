@@ -139,7 +139,7 @@ const PostPage = () => {
           )}
         </header>
 
-        <main className={styles.postContent}>
+        <main className={`default_styling ${styles.postContent}`}>
           {parse(`${postData.content}`)}
         </main>
 

@@ -33,6 +33,34 @@
   color: var(--grey-600);
 }
 
+/* Post Actions */
+.actionsInfo {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.actionsInfo > .error {
+  text-align: center;
+}
+
+.postActions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.postActions > button {
+  flex: initial !important;
+}
+
+.error {
+  padding-top: 0.25rem;
+  color: var(--error-300);
+  font-size: 0.9rem;
+}
+
 /* Main Content */
 .postContent,
 .commentsSec {

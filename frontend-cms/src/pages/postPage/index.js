@@ -1,5 +1,6 @@
+import toast from "react-hot-toast";
 import { useContext, useState, useEffect } from "react";
-import { useParams } from "react-router";
+import { useParams, useNavigate } from "react-router";
 import { format } from "date-fns";
 import parse from "html-react-parser";
 
@@ -14,11 +15,44 @@ import ErrorPage from "../errorPage";
 const PostPage = () => {
   const { postId } = useParams();
   const { token } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   const [postData, setPostData] = useState([]);
   const [postComments, setPostComments] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(false);
+
+  const handlePostDeletion = async () => {
+    const res = await fetch(
+      `${process.env.REACT_APP_BACKEND_URL}/api/posts/${postId}`,
+      {
+        method: "DELETE",
+        headers: { Authorization: `bearer ${token}` },
+      }
+    );
+    if (res.ok) {
+      toast.success("Successfully deleted post.");
+      navigate("/", { replace: true });
+    } else {
+      toast.error("Something went wrong with deleting the post.");
+    }
+  };
+
+  const handleCommentDelete = async (id) => {
+    const res = await fetch(
+      `${process.env.REACT_APP_BACKEND_URL}/api/posts/${postId}/comments/${id}`,
+      {
+        method: "DELETE",
+        headers: { Authorization: `bearer ${token}` },
+      }
+    );
+    if (res.ok) {
+      toast.success("Successfully deleted comment.");
+      setPostComments((prev) => prev.filter((comment) => comment._id !== id));
+    } else {
+      toast.error("Something went wrong with deleting the commment.");
+    }
+  };
 
   useEffect(() => {
     const getPostInfo = async () => {
@@ -87,20 +121,45 @@ const PostPage = () => {
           )}
         </header>
 
-        <main className={styles.postContent}>
+        <main className={`default_styling ${styles.postContent}`}>
           {parse(`${postData.content}`)}
         </main>
+
+        <div className={styles.actionsInfo}>
+          <div className={styles.postActions}>
+            <button
+              className="btn compressed"
+              onClick={() => navigate("./edit")}
+            >
+              Update
+            </button>
+            <button className="btn compressed red" onClick={handlePostDeletion}>
+              Delete
+            </button>
+          </div>
+          <p className={styles.error}>
+            * Clicking delete will permanently delete this post and all comments
+            for this post.
+          </p>
+        </div>
 
         <hr className={styles.line} />
 
         <div className={styles.commentsSec}>
           <h2>Discussion ({postComments.length})</h2>
+          <p className={styles.error}>
+            * Clicking delete will permanently delete the comment.
+          </p>
           <div className={styles.commentCont}>
             {postComments.length === 0 ? (
               <p className={styles.noneFound}>No Comments Found.</p>
             ) : (
               postComments.map((comment) => (
-                <Comment key={comment._id} comment={comment} />
+                <Comment
+                  key={comment._id}
+                  comment={comment}
+                  onDelete={handleCommentDelete}
+                />
               ))
             )}
           </div>

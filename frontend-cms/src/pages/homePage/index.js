@@ -53,7 +53,9 @@ const CMSPostsSection = ({ posts, sectionName, loading }) => {
   return (
     <section className={styles.subContainer}>
       <header className={styles.header}>
-        <h1>{sectionName} Posts</h1>
+        <h1>
+          {sectionName} Posts ({posts.length})
+        </h1>
         <span className={styles.line} />
       </header>
 

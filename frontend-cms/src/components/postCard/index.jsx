@@ -9,18 +9,20 @@ const PostCard = ({ post }) => {
       <img src={post.thumbnailUrl} alt="Blog Post Thumbnail" />
       <div className={styles.content}>
         <h2 className="ellipse">{post.title}</h2>
-        <p>
-          Posted {format(new Date(post.date), "MMM d yyyy")}{" "}
-          {post.lastEdited && (
-            <span>
-              {post.lastEdited &&
-                `(last edited ${format(
-                  new Date(post.lastEdited),
-                  "MMM d yyyy pp"
-                )})`}
-            </span>
-          )}
-        </p>
+        {post.date !== undefined && (
+          <p>
+            Posted {format(new Date(post.date), "MMM d yyyy")}{" "}
+            {post.lastEdited && (
+              <span>
+                {post.lastEdited &&
+                  `(last edited ${format(
+                    new Date(post.lastEdited),
+                    "MMM d yyyy pp"
+                  )})`}
+              </span>
+            )}
+          </p>
+        )}
       </div>
     </Link>
   );

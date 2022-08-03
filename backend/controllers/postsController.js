@@ -176,7 +176,10 @@ exports.postPut = [
 
 exports.postDelete = async (req, res, next) => {
   try {
-    await Post.findByIdAndDelete(req.params.postId);
+    await Promise.all([
+      Post.findByIdAndDelete(req.params.postId),
+      Comment.deleteMany({ postId: req.params.postId }),
+    ]);
     return res.status(200).json({ message: "Successfully deleted post." });
   } catch (err) {
     return res.status().json({ message: "Failed to delete post." });
