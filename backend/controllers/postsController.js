@@ -50,7 +50,7 @@ exports.postsPost = [
       content: req.body.content,
     };
     // Special update value
-    if (published) newPostBody.date = Date.now();
+    if (req.body.published) newPostBody.date = Date.now();
 
     if (!errors.isEmpty()) {
       return res.status(400).json({

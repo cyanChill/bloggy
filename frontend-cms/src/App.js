@@ -10,6 +10,7 @@ import Nav from "./components/navigation";
 import LoginPage from "./pages/loginPage";
 import HomePage from "./pages/homePage";
 import PostPage from "./pages/postPage";
+import CreatePostPage from "./pages/createPostPage";
 import EditPostPage from "./pages/editPostPage";
 import ErrorPage from "./pages/errorPage";
 
@@ -51,6 +52,7 @@ const App = () => {
                 path="/login"
                 element={<Navigate to="/" replace={true} />}
               />
+              <Route path="/post/create" exact element={<CreatePostPage />} />
               <Route path="/post/:postId" element={<PostPage />} />
               <Route path="/post/:postId/edit" element={<EditPostPage />} />
               <Route path="*" element={<ErrorPage />} />

@@ -8,7 +8,7 @@ const PostSchema = new Schema({
   title: { type: String, required: true },
   content: { type: String, required: true },
   thumbnailUrl: { type: String, required: true },
-  date: { type: Date, required: true },
+  date: { type: Date },
   lastEdited: { type: Date },
 });
 

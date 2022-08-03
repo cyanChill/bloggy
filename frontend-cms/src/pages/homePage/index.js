@@ -1,4 +1,5 @@
 import { useContext, useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 import { AuthContext } from "../../context/authContext";
 
@@ -32,6 +33,10 @@ const HomePage = () => {
 
   return (
     <div className={styles.container}>
+      <Link to="/post/create" className="btn compressed">
+        Create a Post
+      </Link>
+
       <CMSPostsSection
         sectionName="Unpublished"
         posts={unPubPosts}
