@@ -42,14 +42,15 @@ exports.postsPost = [
 
   async (req, res, next) => {
     const errors = validationResult(req);
-    const newPostBody = {
+    let newPostBody = {
       author: req.user._id,
       published: req.body.published,
       title: req.body.title,
       thumbnailUrl: req.body.thumbnailUrl,
       content: req.body.content,
-      date: Date.now(),
     };
+    // Special update value
+    if (published) newPostBody.date = Date.now();
 
     if (!errors.isEmpty()) {
       return res.status(400).json({
@@ -112,13 +113,40 @@ exports.postPut = [
 
   async (req, res, next) => {
     const errors = validationResult(req);
-    const updatedPostBody = {
+    let updatedPostBody = {
       published: req.body.published,
       title: req.body.title,
       thumbnailUrl: req.body.thumbnailUrl,
       content: req.body.content,
-      lastEdited: Date.now(),
     };
+    let oldPostData;
+    try {
+      oldPostData = await Post.findById(req.params.postId);
+      if (!oldPostData) {
+        return res.status(409).json({
+          message: "The post you're trying to edit doesn't exist.",
+          data: updatedPostBody,
+        });
+      }
+    } catch (err) {
+      return res.status(500).json({
+        message: "Something went wrong when updating.",
+        data: updatedPostBody,
+      });
+    }
+    let unsetConfig = {};
+    // Some special update values
+    if (oldPostData.published && updatedPostBody.published) {
+      updatedPostBody.lastEdited = Date.now();
+    }
+    if (!oldPostData.published && updatedPostBody.published) {
+      updatedPostBody.date = Date.now();
+      unsetConfig.lastEdited = 1;
+    }
+    if (!updatedPostBody.published) {
+      unsetConfig.date = 1;
+      unsetConfig.lastEdited = 1;
+    }
 
     if (!errors.isEmpty()) {
       return res.status(400).json({
@@ -129,10 +157,10 @@ exports.postPut = [
     }
 
     try {
-      const updatedPost = await Post.findByIdAndUpdate(
-        req.params.postId,
-        updatedPostBody
-      );
+      const updatedPost = await Post.findByIdAndUpdate(req.params.postId, {
+        ...updatedPostBody,
+        $unset: unsetConfig,
+      });
       return res.status(201).json({
         message: "Successfully updated post.",
         post: updatedPost,
