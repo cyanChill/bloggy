@@ -20,6 +20,26 @@ https://user-images.githubusercontent.com/83375816/182513880-1c648e0c-a7ad-462c-
 
 More about the project can be found at: https://www.theodinproject.com/lessons/nodejs-blog-api
 
+# Installation & Setup
+
+## Environment Variables
+
+We utilize a couple of environment variables in the frontend and backend:
+
+### Frontend
+
+| Variable Name           | Value                                                                                                                           |
+| ----------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
+| `REACT_APP_BACKEND_URL` | This contains the url to your backend server. For example: "http://localhost:5000" (make sure you don't have a "/" at the end.) |
+
+### Backend
+
+| Variable Name | Value                                           |
+| ------------- | ----------------------------------------------- |
+| `MONGO_URI`   | URI value to your MongoDB server.               |
+| `SECRET_KEY`  | A string used to sign the JWT tokens.           |
+| `PORT`        | This is the port number the server will run on. |
+
 ## Running App Locally
 
 To run this app locally, while in the current directory in a terminal:
